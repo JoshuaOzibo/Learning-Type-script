@@ -120,4 +120,31 @@ let josh = {id: 1, name: 'joshua', department: 'sales'}
 let sarah = {id: 2, name: 'sarah', department: 'HR'}
 
 condition(josh)
-condition(sarah)
+condition(sarah);
+
+// combining multiple types
+
+type Book = {id: number; name: String; price: number};
+type DiscountedBook = Book & {discount: number};
+
+const books1: Book = {
+    id: 1, 
+    name: 'hello world',
+    price: 15,
+}
+
+const books3: DiscountedBook ={
+    id: 3,
+    name: 'Gabrel book',
+    price: 10,
+    discount: 5,
+}
+
+//computed property in type alias
+const propName = "age";
+
+type Animal = {
+    [propName]: number;
+};
+
+let tiger: Animal = {[propName]: 5};
