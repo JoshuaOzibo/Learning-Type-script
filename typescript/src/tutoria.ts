@@ -26,7 +26,7 @@ let orderStatus: 'processing' | 'shiped' | 'delevered' = "processing";
 orderStatus = 'shiped';
 
 // orderStatus ='delete'; // error because delete is not among the type
-
+// eg: Array<string> <> is called generics
 
 //Arrays in typescript;
 const pricesArray: string[] =  ['100', '20', '50']
@@ -148,3 +148,10 @@ type Animal = {
 };
 
 let tiger: Animal = {[propName]: 5};
+
+
+type params = {a: number, b: number};
+
+const logo = (params: {a: number, b: number}):number => {
+    return params.a + params.b
+}
