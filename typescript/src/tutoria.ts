@@ -113,7 +113,6 @@ function condition(staff: staff): void{
     }else{
         console.log('this is the employee')
     }
-
 }
 
 let josh = {id: 1, name: 'joshua', department: 'sales'}
@@ -154,4 +153,6 @@ type params = {a: number, b: number};
 
 const logo = (params: {a: number, b: number}):number => {
     return params.a + params.b
-}
+};
+
+let StrandNum: Array<string> =[]
