@@ -105,11 +105,11 @@ console.log(success, johnName);
 type Employee = {id: number; name: string; department: string};
 type manager = {id: number; name: string; employee: Employee[]}
 
-type staff = Employee | manager;
+type Staff = Employee | manager;
 
-function condition(staff: staff): void{
-    if('employee' in staff){
-        console.log('this is an manager')
+function condition(staff: Staff): void{
+    if('Employee' in staff){
+        console.log('this is a manager')
     }else{
         console.log('this is the employee')
     }
@@ -118,8 +118,10 @@ function condition(staff: staff): void{
 let josh = {id: 1, name: 'joshua', department: 'sales'}
 let sarah = {id: 2, name: 'sarah', department: 'HR'}
 
+const samsung: manager = {id: 1, name: 'sam', employee: [josh, sarah]}
+
 condition(josh)
-condition(sarah);
+condition(samsung)
 
 // combining multiple types
 
@@ -155,4 +157,202 @@ const logo = (params: {a: number, b: number}):number => {
     return params.a + params.b
 };
 
-let StrandNum: Array<string> =[]
+let StrandNum: Array<string> =[];
+
+// interface fundamental
+interface DeepBook {
+    readonly isbn: number;
+    title: string;
+    author: string;
+    genere? : string;
+    printauthor(someValue: string): void;
+}
+
+const deepWork: DeepBook ={
+    isbn: 123,
+    title: 'deep work',
+    author: 'cal network',
+    // printauthor: function (someValue) {
+    //    return someValue
+    // }
+    printauthor: () => {
+        console.log(deepWork.author)
+    }
+}
+
+console.log(deepWork.printauthor('hello world'));
+interface Computer {
+    readonly id: number,
+    brand: string,
+    ram: number,
+    storage?: string,
+    upgradeRam(item: number): number,
+};
+
+const compObj: Computer = {
+    id: 2,
+    brand: 'samsung',
+    ram: 10,
+    storage: '50gig',
+    upgradeRam: (item) =>{
+        return compObj.id + compObj. ram + item
+    }
+}
+
+console.log(compObj);
+
+
+interface deltaPerson {
+    name: string;
+    getDetaild(): string;
+}
+
+interface DogOwner{
+    dogName: string,
+    getDog(): string;
+}
+
+interface deltaPerson {
+    age: number;
+};
+
+const newDelta: deltaPerson = {
+    name: 'joshua',
+    age: 10,
+    getDetaild(){
+        return `name: ${this.name} , age: ${this.age}`;
+    },
+};
+
+//merging interfaces 
+interface deltaEmployee extends deltaPerson, DogOwner{
+    newAge: number;
+}
+
+const personEmployed: deltaEmployee ={
+    name: 'sam',
+    age: 10,
+    newAge: 15,
+    dogName: 'bingo',
+    getDetaild(){
+        return `${this.name}, ${this.age}`
+    },
+    getDog() {
+        return `${this.dogName}`
+    },
+};
+
+
+console.log(personEmployed);
+
+
+interface playing {
+    name: string;
+};
+
+interface DogOwners extends playing {
+    dogOwnerDg: string;
+}
+
+interface manageItems extends playing {
+    managePeopls(): void;
+    delefateTasks():void;
+}
+
+function getEmployeeFunc(): playing | DogOwner | manageItems{
+    let randomNum = Math.random() * 1;
+
+    if(randomNum <= 0.33){
+        return {
+            name: 'joshua'
+        };
+    }else if(randomNum <= 0.66){
+
+        return {
+            name: "samuel",
+        }
+
+    }else{
+        return {
+            name: 'manager',
+            managePeopls(){
+                console.log('manager')
+            },
+            delefateTasks(){
+                console.log('delegetor')
+            }
+        }
+    }
+}
+
+let newEmployee: playing | DogOwner | manageItems = getEmployeeFunc();
+
+console.log(newEmployee);
+
+
+// Tuples & Enums in TS
+// Tuples helps us to set up an array with fixed length or with fixed types ;
+// its importsnt when we want to group different types of values together;
+
+//Tuples: 
+// examples:
+let tuplesPerson:[string, number] =['sam', 10];
+
+let date: readonly [number, number, number] =[14, 6, 2024];
+// console.log(date.push(7)) cannot push because of the readonly; readonly hepls to set either a string , number or a boolean to a static form;
+
+function tuplesForm(): [string, number] {
+    return ['josh', 49];
+};
+
+//Enums
+//this allow us to define a set of named constant
+
+enum statusCode{
+    success,
+    error
+};
+
+Object.values(statusCode).forEach((value) => {
+    if(typeof value === 'number'){
+        console.log(value)
+    }
+})
+
+interface codeResponse{
+    result: statusCode,
+    data: string[];
+}
+
+function getCodeResponse():codeResponse {
+    return {
+        result: statusCode.success,
+        data: ['item one', 'item two']
+    }
+}
+
+const responseResult: codeResponse = getCodeResponse();
+
+// console.log(responseResult)
+
+//challenge
+enum UserRole {
+    Admin,
+    Manager,
+    Employee
+};
+
+type AliasUser = {id: number, name: string, role: UserRole, contact:[string, string] }
+
+function createUser(user: AliasUser): AliasUser{
+    return user;
+};
+
+const createdUser:AliasUser = createUser({
+    id: 1,
+    name: 'michael',
+    role: UserRole.Admin,
+    contact: ['josh@hmail.com', '1234'],
+});
+
+console.log(createdUser)
