@@ -298,7 +298,7 @@ console.log(newEmployee);
 // examples:
 let tuplesPerson:[string, number] =['sam', 10];
 
-let date: readonly [number, number, number] =[14, 6, 2024];
+let date: readonly [number, number, number] = [14, 6, 2024];
 // console.log(date.push(7)) cannot push because of the readonly; readonly hepls to set either a string , number or a boolean to a static form;
 
 function tuplesForm(): [string, number] {
@@ -355,4 +355,102 @@ const createdUser:AliasUser = createUser({
     contact: ['josh@hmail.com', '1234'],
 });
 
-console.log(createdUser)
+console.log(createdUser);
+
+//type as;
+
+type brd = {
+    name: string;
+}
+
+let stringVal:any = "this is a string";
+let strLth: number = (stringVal as string).length;
+
+let animalStr = '{"Name" : "Eagle"}';
+let animalDogStr = '{"breed" : "rott"}';
+
+const parse = JSON.parse(animalStr);
+const parseDog = JSON.parse(animalDogStr);
+
+const animalAs = parse as brd;
+const DogAs = parseDog as brd;
+console.log(animalAs)
+console.log(DogAs)
+
+// console.log(parse)
+
+//modules in typescript
+// use "moduleDectection": "force", // in the tsconfig.json file to prevent module name repeation errors
+// newGit = pick<gitItem, "item", "id", "inde
+// x_id">
+// newGitItem = Omit<newGit, "index_id">
+
+//Generics
+let arr1: Array<string | number> = ['hey', 'hello', 10]
+
+//Generics func
+function genericFunc<T>(arg: T): T { // the T can be replaced with anything . and it stands for any type and will be placed later
+    return arg
+};
+
+const GenFuc = genericFunc<string>('hello world');
+genericFunc<number>(10);
+
+interface GenericInterface<B> {
+    value: B,
+    getValFunc: () => B;
+};
+
+const interString: GenericInterface<string> ={
+    value: 'h',
+    getValFunc(){
+        return this.value;
+    }
+}
+
+async function genFuc<GA> (SAM: GA): Promise<GA>{
+    return SAM
+}
+const getGenFunc = genFuc<string>('');
+
+function genCha(length: number, value: string): string[]{
+    let result: string[] = [];
+    result = Array(length).fill(value);
+    return result;
+};
+
+console.log(genCha(6, 'pastor'))
+
+// Generics
+function ChaGen<T>(length: number, value: T): Array<T>{
+    let linda: T[] = [];
+    linda = Array(length).fill(value);
+    return linda;
+};
+
+console.log(ChaGen<string>(10, '50'));
+
+type Student ={
+    name: string,
+    age: number
+}
+
+const stud: Student ={
+    name: 'samuel',
+    age: 7
+}
+type AnimalGen ={
+    name: string,
+    age: number
+}
+
+const animalGen:AnimalGen ={
+    name: 'ram',
+    age: 10
+}
+
+function geno<T extends {name: string; age: number}>(data: T): void{
+    console.log(data.name)
+    console.log(data.age)
+};
+geno(stud);
